@@ -1,0 +1,38 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: 'AWS::Serverless-2016-10-31'
+Description: An AWS Serverless Specification template describing your function.
+Parameters:
+  Environments:
+   Type: String
+   Default: "dev"
+   AllowedValues:
+    - "dev"
+    - "qa"
+    - "prod"
+   Description: "The deployment environment for the Lambda functions"
+Resources:
+  alexandriausedgarapi:
+    Type: 'AWS::Serverless::Function'
+    Properties:
+      Handler: lambda_function.lambda_handler
+      Runtime: python3.9
+      Environment:
+       Variables:
+        ENV: "${Environment]}"
+      CodeUri: .
+      Description: ''
+      MemorySize: 512
+      Timeout: 30
+      Role: !Sub 'arn:aws:iam::${AWS::AccountId}:role/alexandria-nprd-us-lambda-role'
+      VpcConfig:
+        SecurityGroupIds:
+          - sg-089ef1eda53cfcadf
+        SubnetIds:
+          - subnet-0aef132375e230042
+          - subnet-0d2f8960be1a14e59
+      Tags:
+        Application: alexandria    
+      Layers:
+        - 'arn:aws:lambda:${AWS::Region}:${AWS::AccountId}:layer:AlexUtilities:6'
+      RuntimePolicy:
+        UpdateRuntimeOn: Auto

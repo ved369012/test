@@ -1,0 +1,22 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: 'AWS::Serverless-2016-10-31'
+Description: 'Creates lambda_function API resource'
+Resources:
+  LambdaFunction:
+    Type: 'AWS::Serverless::Function'
+    Properties:
+      Handler: lambda_functions.lambda_handler
+      Runtime: python3.9
+      CodeUri: .
+      Description: Retrieves all documents from a MongoDB collection
+      MemorySize: 128
+      Timeout: 30
+      Policies:
+        - AmazonDynamoDBFullAccess
+      Events:
+        HttpApi:
+          Type: HttpApi
+          Properties:
+            Path: /get-country-data
+            Method: get
+
