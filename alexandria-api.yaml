@@ -36,3 +36,5 @@ Resources:
         - 'arn:aws:lambda:${AWS::Region}:${AWS::AccountId}:layer:AlexUtilities:6'
       RuntimePolicy:
         UpdateRuntimeOn: Auto
+  prodPipelineTrigger:
+    Type: 'AWS::Events::Rule'      
