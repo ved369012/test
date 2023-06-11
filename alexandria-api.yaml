@@ -36,4 +36,10 @@ Resources:
         - 'arn:aws:lambda:${AWS::Region}:${AWS::AccountId}:layer:AlexUtilities:6'
       RuntimePolicy:
         UpdateRuntimeOn: Auto
+  ManualApproval:
+    Type: 'AWS::CodePipeline::CustomActionType'
+    Properties:
+      Category: Approval
+      Provider: ManualApproval
+      Version: 1        
       
